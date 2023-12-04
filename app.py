@@ -25,6 +25,7 @@ with app.app_context():  # Вход в контекст приложения
     user1 = User('Johnny6', 'F', 23, 'USA', 'BJJ')  # Создание нового пользователя
     user2 = User('Kate', 'M', 22, 'USA', 'Swimming')  # Создание нового пользователя
     db.session.add(user1)  # Добавление пользователя в текущую сессию
+    db.session.commit()  # Фиксация изменений в базе данных
     db.session.add(user2) # Добавление пользователя в текущую сессию
     db.session.commit()  # Фиксация изменений в базе данных
     users = User.query.all()  # Получение всех пользователей
@@ -37,9 +38,14 @@ with app.app_context():  # Вход в контекст приложения
 def index():  # Определение функции для обработки запроса к корневому URL
     return render_template('index.html')  # Возвращает шаблон index.html
 
-@app.route('/contacts.html')  # Определение маршрута для URL /contacts.html
-def contacts():  # Определение функции для обработки запроса к URL /contacts.html
+@app.route('/contacts.html')  # Определение маршрута для URL /contacts/
+def contacts():  # Определение функции для обработки запроса к URL /contacts/
     return render_template('contacts.html')  # Возвращает шаблон contacts.html
 
+@app.route('/users/') # Определение маршрута для URL /users/
+def users(): # Определение функции для обработки запроса к URL /contacts/
+    users = User.query.all() #Получение всех записей из таблицы (класса) Users
+    return render_template('users.html', users=users) #передача списка пользователей в HTML
+
 if __name__ == '__main__':  # Если код запускается напрямую
-    app.run()  # Запуск приложения
+    app.run(debug=True)  # Запуск приложения
