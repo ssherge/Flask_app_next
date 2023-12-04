@@ -38,7 +38,7 @@ with app.app_context():  # Вход в контекст приложения
 def index():  # Определение функции для обработки запроса к корневому URL
     return render_template('index.html')  # Возвращает шаблон index.html
 
-@app.route('/contacts.html')  # Определение маршрута для URL /contacts/
+@app.route('/contacts')  # Определение маршрута для URL /contacts/
 def contacts():  # Определение функции для обработки запроса к URL /contacts/
     return render_template('contacts.html')  # Возвращает шаблон contacts.html
 
